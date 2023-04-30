@@ -24,7 +24,7 @@ import { visuallyHidden } from '@mui/utils';
 import Moment from 'react-moment';
 import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link';
-import { Button } from '@mui/material';
+import { Alert, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useRouter } from 'next/router';
 
@@ -418,14 +418,16 @@ const handleDelete =(_item)=>{
               })}
               {emptyRows > 0 && (
                 <TableRow
-                 
+ 
                 >
                   <TableCell colSpan={6} />
                 </TableRow>
-              )}
+              )} 
             </TableBody>
           </Table>
+          {!rows.length > 0 && <Alert severity="warning">This is a warning alert — No Data found!</Alert>}
         </TableContainer>
+        {rows.length > 0 &&
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"
@@ -434,7 +436,7 @@ const handleDelete =(_item)=>{
           page={page}
           onPageChange={handleChangePage}
           onRowsPerPageChange={handleChangeRowsPerPage}
-        />
+        /> }
     </Box>
   );
 }
