@@ -13,8 +13,8 @@ const LayoutComponent = ({children}) => {
     <Box>
     {session && (
       <Grid container >
-            <Grid item xs={1.5} ><SidebarComponent /> </Grid>
-            <Grid item xs={10.5} >
+            <Grid item lg={1.5}  ><SidebarComponent /> </Grid>
+            <Grid item lg={10.5} xs={12} >
                 <Grid container >
                     <Grid item xs={12}><HeaderComponent /></Grid>
                     <Grid item xs={12}  >{children}</Grid>

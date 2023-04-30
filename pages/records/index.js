@@ -1,10 +1,12 @@
-import { Box, Typography } from '@mui/material'
+import { Box } from '@mui/material'
 import React from 'react'
+import RecordsTable from '../../component/records/RecordsTable'
 
 const index = () => {
+  
   return (
-    <Box mt={5}>
-      <Typography textAlign={'center'} >Records</Typography>
+    <Box m={1} >
+        <RecordsTable  />
     </Box>
   )
 }
