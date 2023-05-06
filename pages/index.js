@@ -40,7 +40,7 @@ export default function Home() {
   const [checkDuration, setCheckDuration] = useState(1);
   const [labelName, setLabelName] = useState('')
   const [isSSR, setIsSSR] = useState(true);
-
+  const [data, setData] = useState([])
 
 
   const handleChange = (event) => {
@@ -60,7 +60,6 @@ export default function Home() {
     setLabelName(period.find(s => s.value === checkDuration)?.name)
   }, [checkDuration])
 
-  const data = JSON.parse(localStorage?.getItem("records"))
   const totalAmount = data?.reduce(
     (prevValue, currentValue) => prevValue + currentValue?.totalAmount,
     0
@@ -77,6 +76,8 @@ export default function Home() {
 
   useEffect(() => {
     setIsSSR(false);
+   const result = JSON.parse(localStorage?.getItem("records")) || []
+    setData(result)
   }, []);
   return (
     <div >
