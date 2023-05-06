@@ -1,20 +1,23 @@
+import { useEffect, useState } from 'react'
+
 import { Box } from '@mui/material'
-import React, { useEffect, useState } from 'react'
 import RecordsTable from '../../component/records/RecordsTable'
 
-const index = () => {
+const Index = () => {
   const [isSSR, setIsSSR] = useState(true);
 
 useEffect(() => {
 	setIsSSR(false);
 }, []);
   return (
-    <Box m={1} >
+    <>
     { !isSSR && 
+    <Box m={1} >
         <RecordsTable  />
-    }
     </Box>
+  }
+    </>
   )
 }
 
-export default index
+export default Index
