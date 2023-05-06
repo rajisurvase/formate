@@ -27,6 +27,7 @@ import Link from 'next/link';
 import { Alert, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useRouter } from 'next/router';
+import moment from 'moment';
 
 // import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -361,7 +362,7 @@ const handleDelete =(_item)=>{
             />
             <TableBody>
               {rows?.slice(0,5)?.map((row, index) => {
-                const isItemSelected = isSelected(row.borrowerName);
+                const isItemSelected = isSelected(row?.borrowerName);
                 const labelId = `enhanced-table-checkbox-${index}`;
 
                 return (
@@ -370,7 +371,7 @@ const handleDelete =(_item)=>{
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row.name}
+                    key={row?.name}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer', background:`${index%2===0? "" : "  #CEF3FF"}`  }}
                     component={Paper}
@@ -392,15 +393,17 @@ const handleDelete =(_item)=>{
                       scope="row"
                       padding="none"
                     >
-                      {row.borrowerName}
+                      {row?.borrowerName}
                     </TableCell>
-                    <TableCell >{row.lenderName}</TableCell>
-                    <TableCell align="right">{Number(row.principalAmount)?.toFixed(2)}</TableCell>
-                    <TableCell align="right">{row.interestAmount?.toFixed(2)}</TableCell>
-                    <TableCell align="right">{row.roi}%</TableCell>
-                    <TableCell align="right"> <Moment format="D MMM YYYY" withTitle>{row.purchaseDate}</Moment></TableCell>
-                    <TableCell sx={{color:`${row.status==="pending"? 'red' : ""}`}} >{row.status}</TableCell>
-                    <TableCell align="right">{row.totalAmount?.toFixed(2)}</TableCell>
+                    <TableCell >{row?.lenderName}</TableCell>
+                    <TableCell align="right">{Number(row?.principalAmount)?.toFixed(2)}</TableCell>
+                    <TableCell align="right">{row?.interestAmount?.toFixed(2)}</TableCell>
+                    <TableCell align="right">{row?.roi}%</TableCell>
+                    <TableCell align="right"> 
+                    {moment(row?.purchaseDate).format('MMMM Do YYYY')}
+                    </TableCell>
+                    <TableCell sx={{color:`${row?.status==="pending"? 'red' : ""}`}} >{row?.status}</TableCell>
+                    <TableCell align="right">{row?.totalAmount?.toFixed(2)}</TableCell>
                     <TableCell align="right">
                     <Tooltip title="Edit">
                       <IconButton size="small" >
@@ -425,9 +428,9 @@ const handleDelete =(_item)=>{
               )} 
             </TableBody>
           </Table>
-          {!rows.length > 0 && <Alert severity="warning">This is a warning alert — No Data found!</Alert>}
+          {!rows?.length > 0 && <Alert severity="warning">This is a warning alert — No Data found!</Alert>}
         </TableContainer>
-        {rows.length > 0 &&
+        {rows?.length > 0 &&
         <TablePagination
           rowsPerPageOptions={[5, 10, 25]}
           component="div"

@@ -59,21 +59,20 @@ export default function Home() {
   }, [checkDuration])
 
   const data = JSON.parse(localStorage.getItem("records"))
-  const totalAmount = data.reduce(
+  const totalAmount = data?.reduce(
     (prevValue, currentValue) => prevValue + currentValue?.totalAmount,
     0
   );
 
-  const totalInterest = data.reduce(
+  const totalInterest = data?.reduce(
     (prevValue, currentValue) => prevValue + currentValue?.interestAmount,
     0
   );
-  const totalPrincipal = data.reduce(
+  const totalPrincipal = data?.reduce(
     (prevValue, currentValue) => prevValue + Number(currentValue?.principalAmount),
     0
   );
 
-  console.log("total", data) 
   // interestAmount
 
 
@@ -99,7 +98,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Amount </Typography>
-              <Typography>$ {Number(totalAmount).toFixed(2)} </Typography>
+              <Typography>$ {totalAmount? Number(totalAmount).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <MonetizationOnOutlinedIcon color="success" />
@@ -114,7 +113,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Interest </Typography>
-              <Typography>$ {Number(totalInterest).toFixed(2)} </Typography>
+              <Typography>$ {totalInterest? Number(totalInterest).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <KeyboardDoubleArrowUpOutlinedIcon color="success" />
@@ -129,7 +128,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Principal </Typography>
-              <Typography>$ {Number(totalPrincipal).toFixed(2)} </Typography>
+              <Typography>$ {totalPrincipal? Number(totalPrincipal).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <RadioButtonCheckedOutlinedIcon color="primary" />
@@ -144,7 +143,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Amount </Typography>
-              <Typography>$ {Number(totalInterest).toFixed(2)} </Typography>
+              <Typography>$ {totalInterest? Number(totalInterest).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <KeyboardDoubleArrowUpOutlinedIcon color="success" />
