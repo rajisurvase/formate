@@ -82,7 +82,7 @@ export default function Home() {
   useEffect(() => {
     setIsSSR(false);
    const result = JSON.parse(localStorage?.getItem("records")) || []
-    setData(result)
+    setData(result? result : [])
   }, []);
   return (
     <div >
