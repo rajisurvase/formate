@@ -365,7 +365,7 @@ const handleDeleteSelected =()=>{
             />
             <TableBody>
               {(rowsPerPage > 0
-            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : rows
           ).map((row, index) => {
                 const isItemSelected = isSelected(row?.id);
