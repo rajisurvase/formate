@@ -8,6 +8,7 @@ import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlin
 import TotalInterestAmount from '../util/TotalInterestAmount';
 import AddIcon from '@mui/icons-material/Add';
 import dayjs from 'dayjs';
+import CurrencyRupeeIcon from '@mui/icons-material/CurrencyRupee';
 const period = [
   {
     id: 1,
@@ -107,10 +108,10 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Amount </Typography>
-              <Typography>$ {totalInterest && totalPrincipal? Number(totalInterest + totalPrincipal).toFixed(2) : 0} </Typography>
+              <Typography>₹ {totalInterest && totalPrincipal? Number(totalInterest + totalPrincipal).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
-            <MonetizationOnOutlinedIcon color="success" />
+            <CurrencyRupeeIcon color="success" />
             </Box>
           </Box>
         </Grid>
@@ -122,7 +123,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Interest </Typography>
-              <Typography>$ {totalInterest? Number(totalInterest).toFixed(2) : 0} </Typography>
+              <Typography>₹ {totalInterest? Number(totalInterest).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <KeyboardDoubleArrowUpOutlinedIcon color="success" />
@@ -137,7 +138,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Principal </Typography>
-              <Typography>$ {totalPrincipal? Number(totalPrincipal).toFixed(2) : 0} </Typography>
+              <Typography>₹ {totalPrincipal? Number(totalPrincipal).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <RadioButtonCheckedOutlinedIcon color="primary" />
@@ -152,7 +153,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Amount </Typography>
-              <Typography>$ {totalInterest? Number(totalInterest).toFixed(2) : 0} </Typography>
+              <Typography>₹ {totalInterest? Number(totalInterest).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <KeyboardDoubleArrowUpOutlinedIcon color="success" />
