@@ -25,12 +25,12 @@ import Moment from 'react-moment';
 import EditIcon from '@mui/icons-material/Edit';
 import Link from 'next/link';
 import { Alert, Button } from '@mui/material';
-import SendIcon from '@mui/icons-material/Send';
+// import SendIcon from '@mui/icons-material/Send';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import dayjs from 'dayjs';
 import TotalInterestAmount from '../../util/TotalInterestAmount';
-
+import AddIcon from '@mui/icons-material/Add';
 // import DeleteIcon from '@mui/icons-material/Delete';
 
 function descendingComparator(a, b, orderBy) {
@@ -180,7 +180,7 @@ EnhancedTableHead.propTypes = {
 };
 
 function EnhancedTableToolbar(props) {
-  const { numSelected, handleDelete } = props;
+  const { numSelected, handleDeleteSelected } = props;
 
   return (
     <Toolbar
@@ -211,7 +211,7 @@ function EnhancedTableToolbar(props) {
           component="div"
         >
          <Link href="/records/Create" >
-            <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4"}} endIcon={<SendIcon  sx={{fontSize:'small'}} />} >create record </Button>
+            <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
             </Link>
         </Typography> 
            
@@ -220,7 +220,7 @@ function EnhancedTableToolbar(props) {
 
       {numSelected > 0 ? (
         <Tooltip title="Delete">
-          <IconButton onClick={handleDelete} >
+          <IconButton onClick={handleDeleteSelected} >
             <DeleteIcon />
           </IconButton>
         </Tooltip>
@@ -260,7 +260,7 @@ export default function RecordsTable() {
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelected = rows.map((n) => n.borrowerName);
+      const newSelected = rows.map((n) => n.id);
       setSelected(newSelected);
       return;
     }
@@ -321,26 +321,19 @@ const handleDelete =(_item)=>{
     localStorage.setItem("records", JSON.stringify(rows.filter((item)=>item?.id!==_item)))
   setRows([...rows.filter((item)=>item?.id!==_item)])
   } 
+}
 
-  if(selected.length){
-    const getupdate = selected.map((_item)=>{
-      return rows.find((item)=>item?.id!==_item)
-    })
+const handleDeleteSelected =()=>{
+    if(selected.length){
+    const getupdate = rows?.filter((item)=> !selected.includes( item.id )  )
     setRows(getupdate)
     localStorage.setItem("records", JSON.stringify(getupdate))
     setSelected([])
   }  
 }
-// const TotalInterestAmount = ({principleAmount,roi, timeDiff ) => {
-//   console.log("sdfsdf",principleAmount,roi, timeDiff)
-// //   return principleAmount * (1 + roi / 100 * Math.floor(timeDiff )/365) - principleAmount
-// return 0
-// }
-
 
   React.useEffect(()=>{
     const data = JSON.parse(localStorage.getItem("records"))
-    // console.log("data",data)
     const result = data?.map((item)=>{
       return createData(item?.id, item?.borrowerName, item?.lenderName, item?.principalAmount, item?.interestAmount, item?.roi,item?.purchaseDate,item?.status,item?.totalAmount )
     })
@@ -355,7 +348,7 @@ const handleDelete =(_item)=>{
 
   return (
     <Box sx={{ width: '100%' }}>
-        <EnhancedTableToolbar numSelected={selected.length} handleDelete={handleDelete} />
+        <EnhancedTableToolbar numSelected={selected.length} handleDeleteSelected={handleDeleteSelected} />
         <TableContainer>
           <Table 
             sx={{ minWidth: 750 }}
@@ -371,7 +364,10 @@ const handleDelete =(_item)=>{
               rowCount={rows?.length}
             />
             <TableBody>
-              {rows?.slice(0,5)?.map((row, index) => {
+              {(rowsPerPage > 0
+            ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            : rows
+          ).map((row, index) => {
                 const isItemSelected = isSelected(row?.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
                 const timeDiff = todayDate.diff(row?.purchaseDate)/(1000 * 60 * 60 * 24)
@@ -413,8 +409,8 @@ const handleDelete =(_item)=>{
                     <TableCell align="right"> 
                     {moment(row?.purchaseDate).format('MMMM Do YYYY')}
                     </TableCell>
-                    <TableCell sx={{color:`${row?.status==="pending"? 'red' : ""}`}} >{row?.status}</TableCell>
-                    <TableCell align="right">{row?.totalAmount?.toFixed(2)}</TableCell>
+                    <TableCell sx={{color:`${row?.status==="pending"? 'red' : "green"}`}} >{row?.status}</TableCell>
+                    <TableCell align="right">{row?.status==="paid"? row?.totalAmount : (TotalInterestAmount(row?.principalAmount,row?.roi,timeDiff) + Number(row?.principalAmount)).toFixed(2)}</TableCell>
                     <TableCell align="right">
                     <Tooltip title="Edit">
                       <IconButton size="small" onClick={()=>router.push(`/records/${row?.id}`)} >
@@ -430,13 +426,12 @@ const handleDelete =(_item)=>{
                   </TableRow>
                 );
               })}
-              {emptyRows > 0 && (
+              {/* {emptyRows > 0 && (
                 <TableRow
- 
                 >
                   <TableCell colSpan={6} />
                 </TableRow>
-              )} 
+              )}  */}
             </TableBody>
           </Table>
           {!rows?.length > 0 && <Alert severity="warning">This is a warning alert — No Data found!</Alert>}

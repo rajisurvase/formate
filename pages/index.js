@@ -1,12 +1,12 @@
 import Head from 'next/head'
 import { Box, Button, Card, Divider, FormControl, Grid, IconButton, MenuItem, Select, TextField, Typography } from '@mui/material'
 import Link from 'next/link'
-import SendIcon from '@mui/icons-material/Send';
 import { useEffect, useState } from 'react';
 import KeyboardDoubleArrowUpOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowUpOutlined';
 import RadioButtonCheckedOutlinedIcon from '@mui/icons-material/RadioButtonCheckedOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
 import TotalInterestAmount from '../util/TotalInterestAmount';
+import AddIcon from '@mui/icons-material/Add';
 import dayjs from 'dayjs';
 const period = [
   {
@@ -69,7 +69,6 @@ export default function Home() {
   //   0
   // );
 
-
   const totalInterest = data?.reduce(
     (prevValue, currentValue) => currentValue?.status==='pending'? prevValue + TotalInterestAmount(currentValue?.principalAmount,currentValue?.roi,todayDate.diff(currentValue?.purchaseDate)/(1000 * 60 * 60 * 24)): prevValue,
     0
@@ -95,7 +94,7 @@ export default function Home() {
       </Head>
       <Box textAlign={'end'} style={{ margin: "1rem" }} >
         <Link href="/records/Create" >
-          <Button variant='contained' sx={{ borderRadius: '1.5rem', backgroundColor: "#7D8CC4" }} endIcon={<SendIcon />} >create record </Button>
+        <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
         </Link>
       </Box>
 
