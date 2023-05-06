@@ -365,9 +365,9 @@ const handleDeleteSelected =()=>{
             />
             <TableBody>
               {(rowsPerPage > 0
-            ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage || 0)
             : rows
-          ).map((row, index) => {
+           ).map((row, index) => {
                 const isItemSelected = isSelected(row?.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
                 const timeDiff = todayDate.diff(row?.purchaseDate)/(1000 * 60 * 60 * 24)
