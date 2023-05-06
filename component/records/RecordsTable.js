@@ -28,6 +28,8 @@ import { Alert, Button } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useRouter } from 'next/router';
 import moment from 'moment';
+import dayjs from 'dayjs';
+import TotalInterestAmount from '../../util/TotalInterestAmount';
 
 // import DeleteIcon from '@mui/icons-material/Delete';
 
@@ -245,6 +247,7 @@ export default function RecordsTable() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [rows, setRows] = React.useState([])
+  const [todayDate, setTodayDate] = React.useState(dayjs(new Date()));
 
   const router = useRouter()
   let query = router?.query?.find
@@ -264,12 +267,12 @@ export default function RecordsTable() {
     setSelected([]);
   };
 
-  const handleClick = (event, borrowerName) => {
-    const selectedIndex = selected.indexOf(borrowerName);
+  const handleClick = (event, id) => {
+    const selectedIndex = selected.indexOf(id);
     let newSelected = [];
 
     if (selectedIndex === -1) {
-      newSelected = newSelected.concat(selected, borrowerName);
+      newSelected = newSelected.concat(selected, id);
     } else if (selectedIndex === 0) {
       newSelected = newSelected.concat(selected.slice(1));
     } else if (selectedIndex === selected.length - 1) {
@@ -294,10 +297,11 @@ export default function RecordsTable() {
   };
 
 
-  const isSelected = (borrowerName) => selected.indexOf(borrowerName) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
 
-  function createData(borrowerName, lenderName, principalAmount, interestAmount, roi, purchaseDate,status, totalAmount) {
+  function createData(id,borrowerName, lenderName, principalAmount, interestAmount, roi, purchaseDate,status, totalAmount) {
     return {
+      id,
       borrowerName,
       lenderName,
       principalAmount,
@@ -314,26 +318,31 @@ page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
 const handleDelete =(_item)=>{
   if(_item){
-    localStorage.setItem("records", JSON.stringify(rows.filter((item)=>item?.borrowerName!==_item)))
-  setRows([...rows.filter((item)=>item?.borrowerName!==_item)])
+    localStorage.setItem("records", JSON.stringify(rows.filter((item)=>item?.id!==_item)))
+  setRows([...rows.filter((item)=>item?.id!==_item)])
   } 
 
   if(selected.length){
     const getupdate = selected.map((_item)=>{
-      return rows.find((item)=>item?.borrowerName!==_item)
+      return rows.find((item)=>item?.id!==_item)
     })
     setRows(getupdate)
     localStorage.setItem("records", JSON.stringify(getupdate))
     setSelected([])
-  }
-
-  
+  }  
 }
+// const TotalInterestAmount = ({principleAmount,roi, timeDiff ) => {
+//   console.log("sdfsdf",principleAmount,roi, timeDiff)
+// //   return principleAmount * (1 + roi / 100 * Math.floor(timeDiff )/365) - principleAmount
+// return 0
+// }
+
 
   React.useEffect(()=>{
     const data = JSON.parse(localStorage.getItem("records"))
+    // console.log("data",data)
     const result = data?.map((item)=>{
-      return createData(item?.borrowerName, item?.lenderName, item?.principalAmount, item?.interestAmount, item?.roi,item?.purchaseDate,item?.status,item?.totalAmount )
+      return createData(item?.id, item?.borrowerName, item?.lenderName, item?.principalAmount, item?.interestAmount, item?.roi,item?.purchaseDate,item?.status,item?.totalAmount )
     })
      if(query){
      setRows(result.filter((item)=>item?.borrowerName.toLowerCase().includes(query.toLowerCase()) ))
@@ -342,6 +351,7 @@ const handleDelete =(_item)=>{
     }
   },[query])
 
+  
 
   return (
     <Box sx={{ width: '100%' }}>
@@ -362,16 +372,16 @@ const handleDelete =(_item)=>{
             />
             <TableBody>
               {rows?.slice(0,5)?.map((row, index) => {
-                const isItemSelected = isSelected(row?.borrowerName);
+                const isItemSelected = isSelected(row?.id);
                 const labelId = `enhanced-table-checkbox-${index}`;
-
+                const timeDiff = todayDate.diff(row?.purchaseDate)/(1000 * 60 * 60 * 24)
                 return (
                   <TableRow
                     hover
                     role="checkbox"
                     aria-checked={isItemSelected}
                     tabIndex={-1}
-                    key={row?.name}
+                    key={row?.id}
                     selected={isItemSelected}
                     sx={{ cursor: 'pointer', background:`${index%2===0? "" : "  #CEF3FF"}`  }}
                     component={Paper}
@@ -379,7 +389,7 @@ const handleDelete =(_item)=>{
                   >
                     <TableCell padding="checkbox">
                       <Checkbox
-                        onChange={(event) => handleClick(event, row.borrowerName)}
+                        onChange={(event) => handleClick(event, row.id)}
                         color="primary"
                         checked={isItemSelected}
                         inputProps={{
@@ -397,7 +407,8 @@ const handleDelete =(_item)=>{
                     </TableCell>
                     <TableCell >{row?.lenderName}</TableCell>
                     <TableCell align="right">{Number(row?.principalAmount)?.toFixed(2)}</TableCell>
-                    <TableCell align="right">{row?.interestAmount?.toFixed(2)}</TableCell>
+                    {/* <TableCell align="right">{row?.interestAmount?.toFixed(2)}</TableCell> */}
+                    <TableCell align="right">{row?.principalAmount && row?.roi && timeDiff && TotalInterestAmount(row?.principalAmount,row?.roi,timeDiff).toFixed(2)}</TableCell> 
                     <TableCell align="right">{row?.roi}%</TableCell>
                     <TableCell align="right"> 
                     {moment(row?.purchaseDate).format('MMMM Do YYYY')}
@@ -406,12 +417,12 @@ const handleDelete =(_item)=>{
                     <TableCell align="right">{row?.totalAmount?.toFixed(2)}</TableCell>
                     <TableCell align="right">
                     <Tooltip title="Edit">
-                      <IconButton size="small" >
+                      <IconButton size="small" onClick={()=>router.push(`/records/${row?.id}`)} >
                         <EditIcon fontSize="inherit" />
                       </IconButton>
                       </Tooltip>
                       <Tooltip title="Delete">
-                      <IconButton size="small" color="danger" onClick={()=>handleDelete(row?.borrowerName)} >
+                      <IconButton size="small" color="danger" onClick={()=>handleDelete(row?.id)} >
                         <DeleteIcon fontSize="inherit" />
                       </IconButton>
                       </Tooltip>

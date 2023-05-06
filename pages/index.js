@@ -6,6 +6,8 @@ import { useEffect, useState } from 'react';
 import KeyboardDoubleArrowUpOutlinedIcon from '@mui/icons-material/KeyboardDoubleArrowUpOutlined';
 import RadioButtonCheckedOutlinedIcon from '@mui/icons-material/RadioButtonCheckedOutlined';
 import MonetizationOnOutlinedIcon from '@mui/icons-material/MonetizationOnOutlined';
+import TotalInterestAmount from '../util/TotalInterestAmount';
+import dayjs from 'dayjs';
 const period = [
   {
     id: 1,
@@ -41,6 +43,8 @@ export default function Home() {
   const [labelName, setLabelName] = useState('')
   const [isSSR, setIsSSR] = useState(true);
   const [data, setData] = useState([])
+  const [todayDate, setTodayDate] = useState(dayjs(new Date()));
+
 
 
   const handleChange = (event) => {
@@ -60,17 +64,18 @@ export default function Home() {
     setLabelName(period.find(s => s.value === checkDuration)?.name)
   }, [checkDuration])
 
-  const totalAmount = data?.reduce(
-    (prevValue, currentValue) => prevValue + currentValue?.totalAmount,
-    0
-  );
+  // const totalAmount = data?.reduce(
+  //   (prevValue, currentValue) =>  prevValue + currentValue?.totalAmount,
+  //   0
+  // );
+
 
   const totalInterest = data?.reduce(
-    (prevValue, currentValue) => prevValue + currentValue?.interestAmount,
+    (prevValue, currentValue) => currentValue?.status==='pending'? prevValue + TotalInterestAmount(currentValue?.principalAmount,currentValue?.roi,todayDate.diff(currentValue?.purchaseDate)/(1000 * 60 * 60 * 24)): prevValue,
     0
   );
   const totalPrincipal = data?.reduce(
-    (prevValue, currentValue) => prevValue + Number(currentValue?.principalAmount),
+    (prevValue, currentValue) => currentValue?.status==='pending'? prevValue + Number(currentValue?.principalAmount): prevValue,
     0
   );
 
@@ -103,7 +108,7 @@ export default function Home() {
             />
             <Box >
               <Typography>Total Amount </Typography>
-              <Typography>$ {totalAmount? Number(totalAmount).toFixed(2) : 0} </Typography>
+              <Typography>$ {totalInterest && totalPrincipal? Number(totalInterest + totalPrincipal).toFixed(2) : 0} </Typography>
             </Box>
             <Box pr={2}>
             <MonetizationOnOutlinedIcon color="success" />

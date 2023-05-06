@@ -11,7 +11,6 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useRouter } from 'next/router';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-import { v4 as uuid } from 'uuid';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -22,22 +21,29 @@ const schema = yup.object({
     lenderName: yup.string().required("Lender Name is a required field"),
     principalAmount: yup.number().required("Principal Amount is a required field"),
     roi: yup.string().required("Rate of Interest is a required field"),
-    status: yup.string().required("Status is a required field")
+    status: yup.string().required("Status is a required field"),
+    id:  yup.string()
 }).required();
-const create = () => {
+const EditComponent = ({data}) => {
     const [open, setOpen] = React.useState(false);
-    const unique_id = uuid();
-    console.log("unique_id",unique_id)
-
     const router = useRouter()
     const [value, setValue] = useState(dayjs(new Date()));
-    const [purchaseDate, setPurchaseDate] = useState(dayjs(new Date()))
-    const [getValue, setGetvalue] = useState(0)
-    const [roi, setRoi] = useState(0)
-    const [interestAmount, setInterestAmount] = useState(0);
+    const [purchaseDate, setPurchaseDate] = useState(dayjs(data?.purchaseDate))
+    const timeDiff = value.diff(purchaseDate)/(1000 * 60 * 60 * 24)
+    const [getValue, setGetvalue] = useState(data?.principalAmount)
+    const [roi, setRoi] = useState(data?.roi)
+    const [interestAmount, setInterestAmount] = useState(getValue * (1 + roi / 100 * Math.floor(timeDiff )/365) - getValue);
     const [totalAmount, setTotalAmount] = useState(0)
     const { register, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: yupResolver(schema),
+        defaultValue:{
+            borrowerName: data?.borrowerName,
+            lenderName: data?.lenderName,
+            principalAmount: data?.principalAmount,
+            roi: data?.roi,
+            status: data?.status,
+            id: data?.id
+        }
     });
 
     const handleClick = () => {
@@ -54,14 +60,16 @@ const create = () => {
     const onSubmit = data => {
         const input = {
             ...data,
-            id : unique_id,
             interestAmount,
             totalAmount,
             duePaymentDate: value,
             purchaseDate
         }
         const _value = JSON.parse(localStorage.getItem("records")) || []
-        localStorage.setItem("records", JSON.stringify([ input, ..._value]))
+        const updatedItem = _value.map((todo) => {
+            return todo.id === input?.id ? input : todo;
+          });
+        localStorage.setItem("records", JSON.stringify(updatedItem))
         router.push('/records')
         reset()
         handleClick()
@@ -82,6 +90,10 @@ const create = () => {
             setTotalAmount(getValue * (1 + roi / 100 * Math.floor(timeDiff)/365))
         }
     }, [value, purchaseDate, roi, getValue])
+
+    useEffect(()=>{
+      reset(data)
+    },[data])
 
     return (
         <Box m={2}>
@@ -140,17 +152,16 @@ const create = () => {
                             })} />
                         <Typography color='red'>{errors?.roi?.message}</Typography>
                     </Grid>
-                    {/* <Grid item xs={12} sm={6} md={4} lg={4}  >
+                    <Grid item xs={12} sm={6} md={4} lg={4}  >
                         <LocalizationProvider dateAdapter={AdapterDayjs}>
                             <DatePicker sx={{ width: "100%" }} slotProps={{ textField: { size: 'small' } }}
                                 label="Due PaymentDate Date"
                                 minDate={dayjs(new Date())}
-                                // {...register("duePaymentDate")}
                                 value={value}
                                 onChange={(newValue) => setValue(newValue)}
                             />
                         </LocalizationProvider>
-                    </Grid> */}
+                    </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={4} >
                         <FormControl fullWidth size='small'>
                             <InputLabel >Status</InputLabel>
@@ -197,4 +208,4 @@ const create = () => {
     )
 }
 
-export default create
+export default EditComponent
