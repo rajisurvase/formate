@@ -146,7 +146,9 @@ const HeaderComponent = () => {
             </Box>
             :
             <Box textAlign={'center'} >
-              <Button variant='outlined' onClick={() => signIn()} >SignIn</Button>
+              <Button variant='outlined'
+              //  onClick={() => signIn()}
+                >SignIn</Button>
             </Box>
           }
 

@@ -11,7 +11,7 @@ const LayoutComponent = ({children}) => {
 
   return (
     <Box>
-    {session && (
+    {/* {session && ( */}
       <Grid container >
             <Grid item lg={1.5}  ><SidebarComponent /> </Grid>
             <Grid item lg={10.5} xs={12} >
@@ -21,10 +21,10 @@ const LayoutComponent = ({children}) => {
                 </Grid>
             </Grid>
         </Grid>
-    )} 
-    {!session && (
+    {/* )}  */}
+    {/* {!session && (
       <SignInComponent />
-    )}
+    )} */}
     </Box>
   )
 }

@@ -52,7 +52,9 @@ const SidebarComponent = () => {
           ))}
           <ListItem disablePadding>
 
-            <ListItemButton onClick={() => session ? signOut() : signIn()} >
+            <ListItemButton 
+            // onClick={() => session ? signOut() : signIn()}
+             >
               <ListItemIcon color='white'>
                 <LogoutIcon />
               </ListItemIcon>
