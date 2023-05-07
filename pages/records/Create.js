@@ -20,7 +20,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 const schema = yup.object({
     borrowerName: yup.string().required("Borrower Name is a required field"),
     lenderName: yup.string().required("Lender Name is a required field"),
-    principalAmount: yup.number().required("Principal Amount is a required field"),
+    principalAmount: yup.number().required("Principal Amount is a required field").typeError("Principal Amount is a required field"),
     roi: yup.string().required("Rate of Interest is a required field"),
     status: yup.string().required("Status is a required field")
 }).required();
@@ -185,7 +185,7 @@ const create = () => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} textAlign={'center'} >
                         <Stack direction="row" spacing={2}>
-                            <Button variant='outlined' fullWidth  >Cancel</Button>
+                            <Button variant='outlined' fullWidth onClick={()=>router.push('/records')}  >Cancel</Button>
                             <Button variant='contained' type="submit" fullWidth>Submit</Button>
                         </Stack>
 

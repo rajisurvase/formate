@@ -196,7 +196,7 @@ const EditComponent = ({data}) => {
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} textAlign={'center'} >
                         <Stack direction="row" spacing={2}>
-                            <Button variant='outlined' fullWidth  >Cancel</Button>
+                            <Button variant='outlined' fullWidth onClick={()=>router.push('/records')}  >Cancel</Button>
                             <Button variant='contained' type="submit" fullWidth>Submit</Button>
                         </Stack>
 
