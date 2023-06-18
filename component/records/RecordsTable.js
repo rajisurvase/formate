@@ -410,7 +410,7 @@ const handleDeleteSelected =()=>{
                     {moment(row?.purchaseDate).format('MMMM Do YYYY')}
                     </TableCell>
                     <TableCell sx={{color:`${row?.status==="pending"? 'red' : "green"}`}} >{row?.status==='pending'? 'Balance':'Paid'}</TableCell>
-                    <TableCell align="right">{row?.status==="paid"? row?.totalAmount : (TotalInterestAmount(row?.principalAmount,row?.roi,timeDiff) + Number(row?.principalAmount)).toFixed(2)}</TableCell>
+                    <TableCell align="right">{row?.status==="paid"? row?.totalAmount?.toFixed(2) : (TotalInterestAmount(row?.principalAmount,row?.roi,timeDiff) + Number(row?.principalAmount)).toFixed(2)}</TableCell>
                     <TableCell align="right">
                     <Tooltip title="Edit">
                       <IconButton size="small" onClick={()=>router.push(`/records/${row?.id}`)} >
