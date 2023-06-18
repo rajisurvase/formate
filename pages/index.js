@@ -84,6 +84,14 @@ export default function Home() {
    const result = JSON.parse(localStorage?.getItem("records")) || []
     setData(result? result : [])
   }, []);
+
+const TotalInterestEarned =()=>{
+return formValue.amount * (1 + formValue.rate / 100 * formValue.duration / checkDuration) - formValue.amount
+}
+const Totalvalue =()=>{
+ return formValue.amount * (1 + formValue.rate / 100 * formValue.duration / checkDuration)
+}
+
   return (
     <div >
     { !isSSR && 
@@ -211,9 +219,11 @@ export default function Home() {
           </Grid>
           <Grid item xs={12} md={6} p={3} >
             <div>
-              <h4>Interest Earned ₹ {formValue.amount * (1 + formValue.rate / 100 * formValue.duration / checkDuration) - formValue.amount}</h4>
-              <h4>Principal Amount ₹ {formValue.amount ? formValue.amount : 0}</h4>
-              <h4>Total Value ₹ {formValue.amount * (1 + formValue.rate / 100 * formValue.duration / checkDuration)}</h4>
+              <h4>Interest Earned ₹{TotalInterestEarned()?.toFixed(2)}
+                 {/* {formValue.amount * (1 + formValue.rate / 100 * formValue.duration / checkDuration) - formValue.amount} */}</h4>
+              <h4>Principal Amount ₹ {formValue.amount ? formValue.amount : 0} </h4>
+              <h4>Total Value ₹ {Totalvalue()?.toFixed(2)}
+                {/* {formValue.amount * (1 + formValue.rate / 100 * formValue.duration / checkDuration)} */}</h4>
             </div>
           </Grid>
         </Grid>

@@ -121,16 +121,16 @@ const HeaderComponent = () => {
             </IconButton>
             <InputBase value={data} onChange={(e)=>setData(e.target.value)}
               sx={{ ml: 1, flex: 1 }}
-              placeholder="Search Google Maps"
+              placeholder="Search Borrower Name"
               // inputProps={{ 'aria-label': 'search google maps' }}
             />
             <IconButton type='submit'  sx={{ p: '10px' }} >
               <SearchIcon />
             </IconButton>
-            <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
+            {/* <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
             <IconButton color="primary" sx={{ p: '10px' }} aria-label="directions">
               <DirectionsIcon />
-            </IconButton>
+            </IconButton> */}
           </Paper>
         </Grid>
         <Grid item lg={2} display={{ xs: 'none', lg: 'block' }} alignItems={'center'}>

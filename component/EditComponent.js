@@ -144,7 +144,7 @@ const EditComponent = ({data}) => {
                     <Grid item xs={12} sm={6} md={4} lg={4}>
                         <TextField type='number'
                             size='small' fullWidth
-                            label="Rate of Interest (%)"
+                            label="Rate of Interest In Year(%)"
                             {...register("roi", {
                                 onChange: (e) => {
                                     handleResult(e.target.value)
@@ -170,7 +170,7 @@ const EditComponent = ({data}) => {
                                 id="demo-simple-select"
                                 {...register("status")}
                             >
-                                <MenuItem value={"pending"}>Pending</MenuItem>
+                                <MenuItem value={"pending"}>Balance</MenuItem>
                                 <MenuItem value={"paid"}>Paid</MenuItem>
                             </Select>
                         </FormControl>
@@ -180,11 +180,11 @@ const EditComponent = ({data}) => {
                         <TextField
                             size='small' fullWidth
                             label="Total interest amount" aria-readonly
-                            value={interestAmount}
+                            value={interestAmount?.toFixed(2)}
                         />
                     </Grid>
                     <Grid item xs={12} sm={6} md={4} lg={4} >
-                        <TextField value={totalAmount}
+                        <TextField value={totalAmount?.toFixed(2)}
                             size='small' fullWidth aria-readonly
                             label="Total amount"
                         />
