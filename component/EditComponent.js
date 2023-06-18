@@ -11,6 +11,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { useRouter } from 'next/router';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import HistoryComponent from './HistoryComponent';
 
 const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -204,6 +205,8 @@ const EditComponent = ({data}) => {
                 </Grid>
             </form>
         </Card>
+        <Box textAlign={'center'}><HistoryComponent/> </Box>       
+
         </Box>
     )
 }
