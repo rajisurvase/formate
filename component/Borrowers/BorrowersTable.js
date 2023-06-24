@@ -23,11 +23,11 @@ export default function BorrowersTable() {
 
   return (
     <TableContainer component={Paper} >
-        <Box mt={1} >
+        {/* <Box mt={1} >
           <Link href="/borrowers/create" >
             <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
             </Link>
-         </Box>
+         </Box> */}
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow  sx={{background:"#B2DFFF"}} >

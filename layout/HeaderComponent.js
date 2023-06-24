@@ -76,6 +76,8 @@ const HeaderComponent = () => {
     setData(router?.query?.find);
   }, [router?.query?.find]);
 
+  console.log("router", router)
+
   return (
     <Box py={1} px={1}>
       <Grid container alignItems={"center"}>
@@ -147,8 +149,7 @@ const HeaderComponent = () => {
             Total Borrowers
           </Typography> */}
         </Grid>
-
-        <Grid item lg={5} md={7} sm={7} xs={10}>
+       {router?.pathname === '/' &&  <Grid item lg={5} md={7} sm={7} xs={10}>
           <Paper
             component="form"
             onSubmit={handleSubmit}
@@ -176,7 +177,8 @@ const HeaderComponent = () => {
               <DirectionsIcon />
             </IconButton> */}
           </Paper>
-        </Grid>
+        </Grid> }
+       
         <Grid
           item
           lg={2}
