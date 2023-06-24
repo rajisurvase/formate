@@ -10,6 +10,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Link from "next/link";
 import LogoutIcon from '@mui/icons-material/Logout';
 import { signIn, signOut, useSession } from "next-auth/react";
+import CalculateIcon from '@mui/icons-material/Calculate';
 
 const sideLabel = [
   {
@@ -23,6 +24,12 @@ const sideLabel = [
     name: "Borrowers",
     icon: <GroupAddIcon />,
     link: "/borrowers"
+  },
+  {
+    id: 3,
+    name: "Calculator",
+    icon: <CalculateIcon />,
+    link: "/calculator"
   }
   // {
   //   id: 2,

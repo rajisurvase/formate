@@ -19,7 +19,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import DirectionsIcon from "@mui/icons-material/Directions";
 import { signIn, signOut, useSession } from "next-auth/react";
-// import MenuIcon from '@mui/icons-material/Menu';
 import { IconButton } from "@mui/material";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
@@ -32,6 +31,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import { useRouter } from "next/router";
+import CalculateIcon from '@mui/icons-material/Calculate';
 
 const sideLabel = [
   {
@@ -42,10 +42,22 @@ const sideLabel = [
   },
   {
     id: 2,
-    name: "Records",
+    name: "Borrowers",
     icon: <GroupAddIcon />,
-    link: "/records",
+    link: "/borrowers"
   },
+  {
+    id: 3,
+    name: "Calculator",
+    icon: <CalculateIcon />,
+    link: "/calculator"
+  }
+  // {
+  //   id: 2,
+  //   name: "Records",
+  //   icon: <GroupAddIcon />,
+  //   link: "/records",
+  // },
 ];
 const HeaderComponent = () => {
   const router = useRouter();
