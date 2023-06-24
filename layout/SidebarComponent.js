@@ -20,10 +20,16 @@ const sideLabel = [
   },
   {
     id: 2,
-    name: "Records",
+    name: "Borrowers",
     icon: <GroupAddIcon />,
-    link: "/records"
+    link: "/borrowers"
   }
+  // {
+  //   id: 2,
+  //   name: "Records",
+  //   icon: <GroupAddIcon />,
+  //   link: "/records"
+  // }
 ]
 
 const SidebarComponent = () => {

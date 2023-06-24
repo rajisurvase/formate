@@ -133,7 +133,7 @@ function EnhancedTableHead(props) {
       <TableRow component={Paper} sx={{background:"#B2DFFF"}}  >
      
         <TableCell padding="checkbox">
-          <Checkbox
+          {/* <Checkbox
             color="primary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
             checked={rowCount > 0 && numSelected === rowCount}
@@ -141,7 +141,7 @@ function EnhancedTableHead(props) {
             inputProps={{
               'aria-label': 'select all desserts',
             }}
-          />
+          /> */}
         </TableCell>
         {headCells.map((headCell) => (
           <TableCell
@@ -210,15 +210,16 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-         <Link href="/records/Create" >
+         {/* <Link href="/records/Create" >
             <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
-            </Link>
+            </Link> */}
+            Borrowers Records
         </Typography> 
            
             </>
       )}
 
-      {numSelected > 0 ? (
+      {/* {numSelected > 0 ? (
         <Tooltip title="Delete">
           <IconButton onClick={handleDeleteSelected} >
             <DeleteIcon />
@@ -231,7 +232,13 @@ function EnhancedTableToolbar(props) {
             <FilterListIcon />
           </IconButton>
         </Tooltip>
-      )}
+      )} */}
+
+      <Box textAlign={'right'}>
+       <Link href="/borrowers/create" >
+         <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >  </Button>
+       </Link>
+      </Box>
     </Toolbar>
   );
 }
@@ -383,7 +390,7 @@ const handleDeleteSelected =()=>{
                     component={Paper}
 
                   >
-                    <TableCell padding="checkbox">
+                    {/* <TableCell padding="checkbox">
                       <Checkbox
                         onChange={(event) => handleClick(event, row.id)}
                         color="primary"
@@ -392,7 +399,7 @@ const handleDeleteSelected =()=>{
                           'aria-labelledby': labelId,
                         }}
                       />
-                    </TableCell>
+                    </TableCell> */}
                     <TableCell
                       component="th"
                       id={labelId}
