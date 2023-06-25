@@ -8,7 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import AddIcon from '@mui/icons-material/Add';
 import Link from 'next/link'
-import { Box, Button } from '@mui/material';
+import { Alert, Box, Button } from '@mui/material';
 import { useState } from 'react';
 
 
@@ -37,7 +37,7 @@ export default function BorrowersTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => (
+          { rows.length>0?rows.map((row, index) => (
             <TableRow
               key={row.borrower_id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 }, background:`${index%2===0? "" : "  #CEF3FF"}` }}
@@ -49,7 +49,7 @@ export default function BorrowersTable() {
               <TableCell align="center">{row.phone}</TableCell>
               <TableCell align="center" >{row.email}</TableCell>
             </TableRow>
-          ))}
+          )):<TableRow ><TableCell ><Alert severity="warning" >No Data Found!</Alert></TableCell></TableRow>}
         </TableBody>
       </Table>
     </TableContainer>
