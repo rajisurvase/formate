@@ -76,8 +76,6 @@ const HeaderComponent = () => {
     setData(router?.query?.find);
   }, [router?.query?.find]);
 
-  console.log("router", router)
-
   return (
     <Box py={1} px={1}>
       <Grid container alignItems={"center"}>
