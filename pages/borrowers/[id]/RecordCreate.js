@@ -9,7 +9,6 @@ const RecordCreate = () => {
 
   const fetchLocalStorageData = () => {
     const _value = JSON.parse(localStorage.getItem("borrower")) || [];
-    console.log("_value", _value)
     setBorrowers(_value);
   };
 

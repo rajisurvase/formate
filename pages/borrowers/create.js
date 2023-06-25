@@ -63,6 +63,7 @@ const create = () => {
         const input = {
             ...data,
             borrower_id : unique_id,
+            records : []
         }
         const _value = JSON.parse(localStorage.getItem("borrower")) || []
         localStorage.setItem("borrower", JSON.stringify([ input, ..._value]))

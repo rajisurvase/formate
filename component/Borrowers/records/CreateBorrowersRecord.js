@@ -79,18 +79,13 @@ const CreateBorrowersRecord = ({ borrower }) => {
       duePaymentDate: value,
       purchaseDate,
     };
-
-    
     const _value = JSON.parse(localStorage.getItem("borrower")) || []
     const updatedItem = _value.map((todo) => {
-        return todo.id === borrower?.id ?  newInput: todo;
+        return todo.id === borrower?.id ?  {...todo, records  : [...borrower?.records, input ] }: todo;
       });
-    // const _value = JSON.parse(localStorage.getItem("borrower")) || []
-    console.log("input234", input);
-    // localStorage.setItem("records", JSON.stringify([ input, ..._value]))
-    // router.push('/records')
-    // reset()
-    // handleClick()
+    localStorage.setItem("borrower", JSON.stringify(updatedItem))
+    router.push(`/borrowers/${router?.query?.id}`)
+    reset()
   };
   const handleAmount = (_s) => {
     setGetvalue(_s);
