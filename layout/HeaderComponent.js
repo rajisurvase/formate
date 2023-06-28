@@ -67,9 +67,9 @@ const HeaderComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (data) {
-      router.push(`/records?find=${data}`);
-    }
+    // if (data) {
+      router.push(`/?find=${data}`);
+    // }
   };
 
   useEffect(() => {
