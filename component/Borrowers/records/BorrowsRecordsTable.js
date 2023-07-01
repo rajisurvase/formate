@@ -16,8 +16,8 @@ export default function BorrowsRecordsTable({records}) {
   const router = useRouter()
   const [rows, setRows] = React.useState([])
   const [todayDate, setTodayDate] = React.useState(dayjs(new Date()));
-
-
+  
+//  console.log("router", router?.query.id)
   React.useEffect(()=>{
     setRows(records)
   }, [])
@@ -41,7 +41,8 @@ export default function BorrowsRecordsTable({records}) {
           {rows.map((row, index) => {
             const timeDiff = todayDate.diff(row?.purchaseDate)/(1000 * 60 * 60 * 24)
             return (
-            <TableRow onClick={()=>router.push("/")}
+            <TableRow
+             onClick={()=>router.push(`/borrowers/${router?.query.id}/view/${row.id}`)}
               key={row.id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 },  background:`${index%2===0? "" : "  #CEF3FF"}`, cursor: "pointer" }}
             >
