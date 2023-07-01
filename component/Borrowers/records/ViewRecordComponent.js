@@ -10,15 +10,12 @@ const ViewRecordComponent = ({records}) => {
         setDetails(records?.find(item =>item.id === router?.query?.record_id ))
     },[records])
 
-    console.log("details", details)
-
   return (
     <>
         {details?.id ? 
         <> 
-        
           <Typography variant='h6' > Records : {details?.id} </Typography>
-         
+          <Typography variant='h6' > Records :  </Typography>   
         </> : 
         <>
           <Box display={"flex"} justifyContent={"center"} height={"50vh"}>
