@@ -10,19 +10,12 @@ import TotalInterestAmount from '../../../util/TotalInterestAmount';
 import dayjs from 'dayjs';
 import moment from 'moment';
 import { useRouter } from 'next/router';
+import { Alert } from '@mui/material';
 
 
 export default function BorrowsRecordsTable({records}) {
   const router = useRouter()
-  const [rows, setRows] = React.useState([])
   const [todayDate, setTodayDate] = React.useState(dayjs(new Date()));
-  
-//  console.log("router", router?.query.id)
-  React.useEffect(()=>{
-    setRows(records)
-  }, [])
-
-
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -38,7 +31,8 @@ export default function BorrowsRecordsTable({records}) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row, index) => {
+        {records?.length > 0 && <>
+          {records?.map((row, index) => {
             const timeDiff = todayDate.diff(row?.purchaseDate)/(1000 * 60 * 60 * 24)
             return (
             <TableRow
@@ -57,7 +51,9 @@ export default function BorrowsRecordsTable({records}) {
               <TableCell align="right">{row?.status==="paid"? row?.totalAmount?.toFixed(2) : (TotalInterestAmount(row?.principalAmount,row?.roi,timeDiff) + Number(row?.principalAmount)).toFixed(2)}</TableCell>
             </TableRow>
           )
-          } )}
+          } )} </> }
+
+        {records <= 0 && <Alert variant='warning' >No Data Found !</Alert>}
         </TableBody>
       </Table>
     </TableContainer>
