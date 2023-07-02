@@ -78,21 +78,27 @@ const CreateBorrowersRecord = ({ borrower }) => {
       totalAmount,
       duePaymentDate: value,
       purchaseDate,
-      transitionHistory : [{
-        purchaseDate,
-        description : "Personal Loan",
-        balance :  data?.principalAmount,
-        withDrawals : '',
-        deposits : ''
-      }]
+      transitionHistory: [
+        {
+          purchaseDate,
+          description: "Personal Loan",
+          balance: data?.principalAmount,
+          withDrawals: "",
+          deposits: "",
+        },
+      ],
     };
-    const _value = JSON.parse(localStorage.getItem("borrower")) || []
+    const _value = JSON.parse(localStorage.getItem("borrower")) || [];
     const updatedItem = _value.map((todo) => {
-        return todo.id === borrower?.id ?  {...todo, records  : [...borrower?.records, input ] }: todo;
-      });
-    localStorage.setItem("borrower", JSON.stringify(updatedItem))
-    router.push(`/borrowers/${router?.query?.id}`)
-    reset()
+      if (todo?.borrower_id === router?.query?.id) {
+        const updatedRecords = [...todo.records, input];
+        return { ...todo, records: updatedRecords };
+      }
+      return todo;
+    });
+    localStorage.setItem("borrower", JSON.stringify(updatedItem));
+    router.push(`/borrowers/${router?.query?.id}`);
+    reset();
   };
   const handleAmount = (_s) => {
     setGetvalue(_s);
