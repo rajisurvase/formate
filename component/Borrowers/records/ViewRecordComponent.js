@@ -3,6 +3,7 @@ import { Box, CircularProgress, Grid, Typography } from '@mui/material'
 import moment from 'moment'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import TransitionTable from './transition/TransitionTable'
 
 const ViewRecordComponent = ({ records }) => {
   const router = useRouter()
@@ -12,7 +13,7 @@ const ViewRecordComponent = ({ records }) => {
     setDetails(records?.find(item => item.id === router?.query?.record_id))
   }, [records])
 
-
+  console.log("details", details)
   return (
     <>
       {details?.id ?
@@ -85,9 +86,10 @@ const ViewRecordComponent = ({ records }) => {
                 </Box>
             </Grid>
           </Grid>
-
-        
-
+          <Typography variant='h5'sx={{backgroundColor : '#CEF3FF', padding: "1rem 2rem", borderRadius: "1rem" }} >Transition Details</Typography>
+          <Box mt={1}>
+            <TransitionTable data={details?.transitionHistory} />
+          </Box>
         </> :
         <>
           <Box display={"flex"} justifyContent={"center"} height={"50vh"}>
