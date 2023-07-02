@@ -1,3 +1,4 @@
+import { Padding } from '@mui/icons-material'
 import { Box, CircularProgress, Grid, Typography } from '@mui/material'
 import moment from 'moment'
 import { useRouter } from 'next/router'
@@ -16,6 +17,7 @@ const ViewRecordComponent = ({ records }) => {
     <>
       {details?.id ?
         <>
+        <Typography variant='h5'sx={{backgroundColor : 'aqua', padding: "0.5rem 2rem", borderRadius: "1rem" }} >Borrower Details</Typography>
           {/* <Typography variant='h6' >  Borrower Name : {details?.borrowerName} </Typography>
           <Typography variant='h6' > Due Date : {moment(details?.duePaymentDate).format("MMMM Do YYYY")} </Typography>
           <Typography variant='h6' > Records : {details?.id} </Typography>
@@ -32,6 +34,7 @@ const ViewRecordComponent = ({ records }) => {
                     <Typography  >{details?.borrowerName}  </Typography>
                 </Box>
             </Grid>
+           
             <Grid item xs={12} sx={12} md={6} lg={6} >
                 <Box display={'flex'} >
                     <Typography fontWeight='bold' >  Due Date :  </Typography>
@@ -39,6 +42,8 @@ const ViewRecordComponent = ({ records }) => {
                 </Box>
             </Grid>
           </Grid>
+
+        
 
         </> :
         <>
