@@ -113,7 +113,7 @@ const Totalvalue =()=>{
               </Grid>
             </Grid>
             <Grid container sx={{ alignItems: "center", py: 1 }} >
-              <Grid item xs={5} ><Typography pr={2}>Period Unit </Typography></Grid>
+              <Grid item xs={5} ><Typography pr={2}>Duration </Typography></Grid>
               <Grid item xs={2} ><Typography pr={2}> : </Typography></Grid>
               <Grid item xs={5} >
                 <FormControl fullWidth size="small" minWidth={"40%"} >
@@ -131,7 +131,7 @@ const Totalvalue =()=>{
             </Grid>
 
             <Grid container sx={{ alignItems: "center", py: 1 }} >
-              <Grid item xs={5} ><Typography pr={2}>Number of {labelName}  </Typography></Grid>
+              <Grid item xs={5} ><Typography pr={2}>Time Period {labelName}  </Typography></Grid>
               <Grid item xs={2} ><Typography> : </Typography></Grid>
               <Grid item xs={5} ><TextField fullWidth size='small' type='number' value={formValue.duration} name="duration" onChange={handleInputChange} variant="outlined" /></Grid>
             </Grid>
