@@ -17,7 +17,7 @@ const ViewRecordComponent = ({ records }) => {
     <>
       {details?.id ?
         <>
-        <Typography variant='h5'sx={{backgroundColor : 'aqua', padding: "1rem 2rem", borderRadius: "1rem" }} >Borrower Details</Typography>
+        <Typography variant='h5'sx={{backgroundColor : '#CEF3FF', padding: "1rem 2rem", borderRadius: "1rem" }} >Borrower Details</Typography>
 
           {/* <Typography variant='h6' >  Borrower Name : {details?.borrowerName} </Typography>
           <Typography variant='h6' > Due Date : {moment(details?.duePaymentDate).format("MMMM Do YYYY")} </Typography>
