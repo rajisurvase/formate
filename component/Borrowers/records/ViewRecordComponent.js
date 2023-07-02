@@ -1,4 +1,5 @@
-import { Box, CircularProgress, Typography } from '@mui/material'
+import { Box, CircularProgress, Grid, Typography } from '@mui/material'
+import moment from 'moment'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 
@@ -10,20 +11,34 @@ const ViewRecordComponent = ({ records }) => {
     setDetails(records?.find(item => item.id === router?.query?.record_id))
   }, [records])
 
-  console.log("details", details)
 
   return (
     <>
       {details?.id ?
         <>
-          <Typography variant='h6' > Borrower Name : {details?.borrowerName} </Typography>
-          <Typography variant='h6' > Due Date : {details?.duePaymentDate} </Typography>
+          {/* <Typography variant='h6' >  Borrower Name : {details?.borrowerName} </Typography>
+          <Typography variant='h6' > Due Date : {moment(details?.duePaymentDate).format("MMMM Do YYYY")} </Typography>
           <Typography variant='h6' > Records : {details?.id} </Typography>
           <Typography variant='h6' > Interest Amount : {details?.interestAmount} </Typography>
           <Typography variant='h6' > Principal Amount : {details?.principalAmount} </Typography>
-          <Typography variant='h6' > Purchase Date : {details?.purchaseDate} </Typography>
+          <Typography variant='h6' > Purchase Date : {moment(details?.purchaseDate).format("MMMM Do YYYY")} </Typography>
           <Typography variant='h6' > ROI : {details?.roi} </Typography>
-          <Typography variant='h6' > Total Amount : {details?.totalAmount} </Typography>
+          <Typography variant='h6' > Total Amount : {details?.totalAmount} </Typography> */}
+          
+          <Grid container spacing={2} >
+            <Grid item xs={12} sx={12} md={6} lg={6} >
+                <Box display={'flex'} >
+                    <Typography fontWeight='bold' > Borrower Name :  </Typography>
+                    <Typography  >{details?.borrowerName}  </Typography>
+                </Box>
+            </Grid>
+            <Grid item xs={12} sx={12} md={6} lg={6} >
+                <Box display={'flex'} >
+                    <Typography fontWeight='bold' >  Due Date :  </Typography>
+                    <Typography  >  {moment(details?.duePaymentDate).format("MMMM Do YYYY")}  </Typography>
+                </Box>
+            </Grid>
+          </Grid>
 
         </> :
         <>
