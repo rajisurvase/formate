@@ -78,6 +78,13 @@ const CreateBorrowersRecord = ({ borrower }) => {
       totalAmount,
       duePaymentDate: value,
       purchaseDate,
+      transitionHistory : [{
+        purchaseDate,
+        description : "Personal Loan",
+        balance :  data?.principalAmount,
+        withDrawals : '',
+        deposits : ''
+      }]
     };
     const _value = JSON.parse(localStorage.getItem("borrower")) || []
     const updatedItem = _value.map((todo) => {

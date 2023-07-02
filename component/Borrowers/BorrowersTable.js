@@ -69,7 +69,7 @@ export default function BorrowersTable() {
 
         </TableBody>
       </Table>
-      <Box display={'flex'} justifyContent={'right'} >
+      <Box display={'flex'} justifyContent={'center'} >
       {rows?.length > 0 &&   <Pagination
         count={Math.ceil(rows.length / itemsPerPage)}
         page={currentPage}

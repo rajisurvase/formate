@@ -21,7 +21,7 @@ const List = () => {
                    <Button variant='contained' sx={{borderRadius : '1.5rem', backgroundColor : "#7D8CC4", textTransform:"none"}} endIcon={<AddIcon  sx={{fontSize:'small'}} />} >Add Borrower  </Button>
                 </Link>
               </Box>
-             <BorrowersTable />
+             <BorrowersTable  />
     </Box>  }
     </>
     

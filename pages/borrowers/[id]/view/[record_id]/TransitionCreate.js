@@ -1,5 +1,5 @@
 import React from 'react'
-import CreateTransitionComponent from '../../../../../component/Borrowers/records/transition/CreatetransitionComponent'
+import CreateTransitionComponent from '../../../../../component/Borrowers/records/transition/CreateTransitionComponent'
 
 const TransitionCreate = () => {
   return (
